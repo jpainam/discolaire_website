@@ -33,7 +33,7 @@ export const StickyScroll = ({
     const closestBreakpointIndex = cardsBreakpoints.reduce(
       (acc, breakpoint, index) => {
         const distance = Math.abs(latest - breakpoint);
-        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+
         if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
           return index;
         }
