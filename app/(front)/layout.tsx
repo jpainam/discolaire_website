@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Header } from "@/components/header";
 import { fontVariables } from "@/lib/fonts";
 
-import "@/styles/globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Site web de Discolaire",
