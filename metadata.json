@@ -1,0 +1,6 @@
+{
+  "name": "Discolaire",
+  "description": "Site officiel de présentation et démonstration interactive de Discolaire, la plateforme moderne de gestion pour tous les établissements scolaires.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
