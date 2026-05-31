@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
 import * as Icons from "lucide-react";
-import { DISCOLAIRE_MODULES } from "./data/modulesData";
-import HeroSection from "./components/HeroSection";
-import DemoSandbox from "./components/DemoSandbox";
-import PricingCalculator from "./components/PricingCalculator";
-import DocViewer from "./components/DocViewer";
+import { useState } from "react";
 import ContactForm from "./components/ContactForm";
+import DemoSandbox from "./components/DemoSandbox";
+import DocViewer from "./components/DocViewer";
+import HeroSection from "./components/HeroSection";
+import PricingCalculator from "./components/PricingCalculator";
+import { DISCOLAIRE_MODULES } from "./data/modulesData";
 
 export default function App() {
   const [activeNav, setActiveNav] = useState<string>("home");
@@ -21,35 +21,46 @@ export default function App() {
     return <Icons.HelpCircle className="w-5 h-5 text-[#1A1A1A]" />;
   };
 
-  const selectedModule = DISCOLAIRE_MODULES.find(m => m.id === selectedModuleId);
+  const selectedModule = DISCOLAIRE_MODULES.find(
+    (m) => m.id === selectedModuleId,
+  );
 
   // Navigation page transition scrolling helper
   const navigateToSection = (sectionId: string) => {
     setActiveNav(sectionId);
     setIsMobileMenuOpen(false);
-    
+
     // Smooth scroll to container ID
     const targetElement = document.getElementById(
-      sectionId === "playground" ? "experience-bac-a-sable" :
-      sectionId === "pricing" ? "simulateur-de-tarifs" :
-      sectionId === "docs" ? "documentation-complete" :
-      sectionId === "contact" ? "formulaire-demo" : "section-hero-principale"
+      sectionId === "playground"
+        ? "experience-bac-a-sable"
+        : sectionId === "pricing"
+          ? "simulateur-de-tarifs"
+          : sectionId === "docs"
+            ? "documentation-complete"
+            : sectionId === "contact"
+              ? "formulaire-demo"
+              : "section-hero-principale",
     );
-    
+
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFCFB] text-[#1A1A1A] antialiased selection:bg-[#1A1A1A] selection:text-[#FDFCFB] font-sans" id="main-scroller">
-      
+    <div
+      className="min-h-screen flex flex-col bg-[#FDFCFB] text-[#1A1A1A] antialiased selection:bg-[#1A1A1A] selection:text-[#FDFCFB] font-sans"
+      id="main-scroller"
+    >
       {/* 1. TOP GLOBAL NAVIGATION HEADER */}
       <header className="sticky top-0 z-50 bg-[#FDFCFB]/90 backdrop-blur-md border-b border-[#1A1A1A]/10 px-6 py-5 md:px-12">
         <div className="max-w-7xl mx-auto flex justify-between items-end">
-          
           {/* Logo Brand */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigateToSection("home")}>
+          <div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => navigateToSection("home")}
+          >
             <div className="w-10 h-10 rounded-none bg-[#1A1A1A] flex items-center justify-center text-white">
               <Icons.GraduationCap className="w-5 h-5 text-white" />
             </div>
@@ -67,7 +78,7 @@ export default function App() {
           <nav className="hidden lg:flex items-center gap-2 mb-1">
             <button
               onClick={() => navigateToSection("home")}
-              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === 'home' ? 'border-[#1A1A1A] text-[#1A1A1A]' : 'border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]'}`}
+              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === "home" ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]"}`}
             >
               Accueil
             </button>
@@ -77,25 +88,25 @@ export default function App() {
                 if (el) el.scrollIntoView({ behavior: "smooth" });
                 setActiveNav("modules");
               }}
-              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === 'modules' ? 'border-[#1A1A1A] text-[#1A1A1A]' : 'border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]'}`}
+              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === "modules" ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]"}`}
             >
               15 Modules
             </button>
             <button
               onClick={() => navigateToSection("playground")}
-              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === 'playground' ? 'border-[#1A1A1A] text-[#1A1A1A]' : 'border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]'}`}
+              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === "playground" ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]"}`}
             >
               Démo Interactive
             </button>
             <button
               onClick={() => navigateToSection("pricing")}
-              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === 'pricing' ? 'border-[#1A1A1A] text-[#1A1A1A]' : 'border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]'}`}
+              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === "pricing" ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]"}`}
             >
               Tarifs
             </button>
             <button
               onClick={() => navigateToSection("docs")}
-              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === 'docs' ? 'border-[#1A1A1A] text-[#1A1A1A]' : 'border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]'}`}
+              className={`px-4 py-2 border-b-2 text-xs font-bold uppercase tracking-wider transition-all ${activeNav === "docs" ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-transparent text-[#1A1A1A]/65 hover:text-[#1A1A1A]"}`}
             >
               Documentation
             </button>
@@ -107,12 +118,14 @@ export default function App() {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
               <span>Lancement FR</span>
             </div>
-            
+
             <button
-              onClick={() => navigateToSection("contact")}
+              onClick={() => {
+                window.open("https://demo.discolaire.com", "_blank");
+              }}
               className="bg-[#1A1A1A] hover:bg-opacity-90 text-white font-bold text-[11px] uppercase tracking-widest px-6 py-3 rounded-none transition-all"
             >
-              Réserver une Démo
+              Accèder à la Démo
             </button>
           </div>
 
@@ -122,7 +135,11 @@ export default function App() {
             className="lg:hidden p-2.5 rounded-none bg-[#F4F1EE] border border-[#1A1A1A]/10 text-[#1A1A1A] hover:bg-[#E7E3DF]"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <Icons.X className="w-5 h-5" /> : <Icons.Menu className="w-5 h-5" />}
+            {isMobileMenuOpen ? (
+              <Icons.X className="w-5 h-5" />
+            ) : (
+              <Icons.Menu className="w-5 h-5" />
+            )}
           </button>
         </div>
       </header>
@@ -187,7 +204,9 @@ export default function App() {
             Une Suite Administrative Redoutablement Complète
           </h2>
           <p className="text-[#1A1A1A]/70 text-sm max-w-xl mx-auto leading-relaxed">
-            Chaque module répond aux exigences réelles de la vie scolaire de vos établissements. Cliquez sur un bloc pour analyser son fonctionnement en profondeur.
+            Chaque module répond aux exigences réelles de la vie scolaire de vos
+            établissements. Cliquez sur un bloc pour analyser son fonctionnement
+            en profondeur.
           </p>
         </div>
 
@@ -223,7 +242,6 @@ export default function App() {
       {selectedModuleId && selectedModule && (
         <div className="fixed inset-0 z-50 bg-[#1A1A1A]/50 backdrop-blur-sm flex items-center justify-center p-6 bg-opacity-65">
           <div className="bg-[#FDFCFB] w-full max-w-2xl rounded-none overflow-hidden shadow-xl border border-[#1A1A1A]/15 animate-scale-up">
-            
             {/* Modal header with category banner */}
             <div className="bg-[#F4F1EE] p-8 border-b border-[#1A1A1A]/10 flex justify-between items-center">
               <div className="flex items-center gap-4">
@@ -255,7 +273,9 @@ export default function App() {
                 {selectedModule.description}
               </p>
               <div className="bg-[#F4F1EE]/50 border-l-4 border-[#1A1A1A] p-5 rounded-none">
-                <span className="text-[10px] text-[#1A1A1A]/60 font-bold block mb-2 uppercase tracking-widest">Spécifications techniques & fonctionnelles</span>
+                <span className="text-[10px] text-[#1A1A1A]/60 font-bold block mb-2 uppercase tracking-widest">
+                  Spécifications techniques & fonctionnelles
+                </span>
                 <p className="text-xs text-[#1A1A1A]/80 leading-relaxed font-sans">
                   {selectedModule.fullDetails}
                 </p>
@@ -265,11 +285,15 @@ export default function App() {
             {/* Modal Footer actions */}
             <div className="bg-[#F4F1EE] px-8 py-6 border-t border-[#1A1A1A]/10 flex flex-col sm:flex-row justify-between items-center gap-4">
               <span className="text-[10px] text-[#1A1A1A]/60 font-medium tracking-wide">
-                Ce module s'adapte précisément au cahier des charges de votre établissement.
+                Ce module s'adapte précisément au cahier des charges de votre
+                établissement.
               </span>
               <div className="flex gap-3 w-full sm:w-auto">
                 <button
-                  onClick={() => { setSelectedModuleId(null); navigateToSection("contact"); }}
+                  onClick={() => {
+                    setSelectedModuleId(null);
+                    navigateToSection("contact");
+                  }}
                   className="w-full sm:w-auto px-6 py-3 rounded-none text-xs font-bold uppercase tracking-wider bg-[#1A1A1A] text-white hover:bg-opacity-95 transition"
                 >
                   Configurer
@@ -282,7 +306,6 @@ export default function App() {
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       )}
@@ -298,7 +321,9 @@ export default function App() {
             Faites un Voyage d'Essai Administratif
           </h2>
           <p className="text-[#1A1A1A]/70 text-sm max-w-xl mx-auto leading-relaxed">
-            Prenez les commandes de l'écosystème Discolaire en direct. Manipulez les bulletins scolaires, notez les devoirs ou validez les mensualités scolaires de scolarité.
+            Prenez les commandes de l'écosystème Discolaire en direct. Manipulez
+            les bulletins scolaires, notez les devoirs ou validez les
+            mensualités scolaires de scolarité.
           </p>
         </div>
 
@@ -316,7 +341,9 @@ export default function App() {
             Des Tarifs Clairs, Adaptés aux Écoles de Toutes Tailles
           </h2>
           <p className="text-[#1A1A1A]/70 text-sm max-w-xl mx-auto leading-relaxed">
-            Pas de frais d'installation faramineux ni de coûts cachés supplémentaires. Calculez votre rentabilité et définissez votre budget de fonctionnement trimestriel.
+            Pas de frais d'installation faramineux ni de coûts cachés
+            supplémentaires. Calculez votre rentabilité et définissez votre
+            budget de fonctionnement trimestriel.
           </p>
         </div>
 
@@ -334,7 +361,9 @@ export default function App() {
             Lisez la Notice de Décollage de Discolaire
           </h2>
           <p className="text-[#1A1A1A]/70 text-sm max-w-xl mx-auto leading-relaxed">
-            Notre documentation complète, héritée de docs.discolaire.com, vous présente chaque étape pour un déploiement cloud ou local en totale autonomie académique.
+            Notre documentation complète, héritée de docs.discolaire.com, vous
+            présente chaque étape pour un déploiement cloud ou local en totale
+            autonomie académique.
           </p>
         </div>
 
@@ -352,7 +381,8 @@ export default function App() {
             Planifiez l’Installation de Votre Établissement
           </h2>
           <p className="text-[#1A1A1A]/70 text-sm max-w-xl mx-auto leading-relaxed">
-            Discutez de vos contraintes d'équipement informatique avec nos équipes d'accompagnement technique d'écoles.
+            Discutez de vos contraintes d'équipement informatique avec nos
+            équipes d'accompagnement technique d'écoles.
           </p>
         </div>
 
@@ -362,7 +392,6 @@ export default function App() {
       {/* 9. GLOBAL FRENCH SCHOOL MANAGEMENT FOOTER */}
       <footer className="bg-[#F4F1EE] text-[#1A1A1A]/80 py-20 px-6 mt-auto border-t border-[#1A1A1A]/10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-          
           {/* Col 1: Logo and motto */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -374,7 +403,9 @@ export default function App() {
               </span>
             </div>
             <p className="text-xs text-[#1A1A1A]/75 leading-relaxed">
-              Le premier système d'information complet pour l'administration moderne, la transparence financière, la réconciliation comptable et les bulletins d'excellence.
+              Le premier système d'information complet pour l'administration
+              moderne, la transparence financière, la réconciliation comptable
+              et les bulletins d'excellence.
             </p>
           </div>
 
@@ -385,16 +416,36 @@ export default function App() {
             </h5>
             <ul className="text-xs space-y-2.5">
               <li>
-                <button onClick={() => navigateToSection("home")} className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer">Accueil</button>
+                <button
+                  onClick={() => navigateToSection("home")}
+                  className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer"
+                >
+                  Accueil
+                </button>
               </li>
               <li>
-                <button onClick={() => navigateToSection("playground")} className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer">Démo Interactive</button>
+                <button
+                  onClick={() => navigateToSection("playground")}
+                  className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer"
+                >
+                  Démo Interactive
+                </button>
               </li>
               <li>
-                <button onClick={() => navigateToSection("pricing")} className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer">Simulation de prix</button>
+                <button
+                  onClick={() => navigateToSection("pricing")}
+                  className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer"
+                >
+                  Simulation de prix
+                </button>
               </li>
               <li>
-                <button onClick={() => navigateToSection("docs")} className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer">Guides Techniques</button>
+                <button
+                  onClick={() => navigateToSection("docs")}
+                  className="hover:text-[#1A1A1A] transition-colors bg-transparent border-none p-0 cursor-pointer"
+                >
+                  Guides Techniques
+                </button>
               </li>
             </ul>
           </div>
@@ -418,27 +469,35 @@ export default function App() {
               Engagement académique
             </h5>
             <p className="text-xs text-[#1A1A1A]/75 leading-normal">
-              Solution hébergée sur des serveurs souverains sécurisés conformes pour assurer l'intégrité des dossiers d'évaluation et d'absences de la jeunesse.
+              Solution hébergée sur des serveurs souverains sécurisés conformes
+              pour assurer l'intégrité des dossiers d'évaluation et d'absences
+              de la jeunesse.
             </p>
             <div className="text-[9px] uppercase tracking-wide text-[#1A1A1A] bg-white border border-[#1A1A1A]/10 px-3 py-1.5 inline-block font-bold">
               Intégration de docs.discolaire.com
             </div>
           </div>
-
         </div>
 
         {/* Global base footer */}
         <div className="max-w-7xl mx-auto border-t border-[#1A1A1A]/15 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-[#1A1A1A]/60">
-          <span>&copy; {new Date().getFullYear()} Discolaire. Tous droits d'administration réservés.</span>
+          <span>
+            &copy; {new Date().getFullYear()} Discolaire. Tous droits
+            d'administration réservés.
+          </span>
           <div className="flex gap-4">
-            <span className="hover:underline cursor-pointer">Souveraineté des données</span>
-            <span className="hover:underline cursor-pointer">Protection de l'Enfance (RGPD)</span>
-            <span className="hover:underline cursor-pointer">Conditions d'Utilisation de Démo</span>
+            <span className="hover:underline cursor-pointer">
+              Souveraineté des données
+            </span>
+            <span className="hover:underline cursor-pointer">
+              Protection de l'Enfance (RGPD)
+            </span>
+            <span className="hover:underline cursor-pointer">
+              Conditions d'Utilisation de Démo
+            </span>
           </div>
         </div>
-
       </footer>
-
     </div>
   );
 }
