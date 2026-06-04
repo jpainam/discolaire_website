@@ -13,7 +13,9 @@ export default function App() {
   const [activeNav, setActiveNav] = useState<string>("home");
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
+  const [currentPath, setCurrentPath] = useState(
+    () => window.location.pathname,
+  );
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname);
@@ -85,7 +87,9 @@ export default function App() {
     setIsMobileMenuOpen(false);
 
     // Smooth scroll to container ID
-    const targetElement = document.getElementById(getSectionElementId(sectionId));
+    const targetElement = document.getElementById(
+      getSectionElementId(sectionId),
+    );
 
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -250,7 +254,7 @@ export default function App() {
       {/* 3. CORE HIGHLIGHT: 15 MODULAIRE MODULES */}
       <section className="py-24 px-6 max-w-7xl mx-auto" id="les-15-modules">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-          <div className="w-16 h-[1px] bg-[#1A1A1A] mx-auto mb-4"></div>
+          <div className="w-16 h-px bg-[#1A1A1A] mx-auto mb-4"></div>
           <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A]/60 block">
             ÉCOSYSTÈME DE CONFORT PÉDAGOGIQUE
           </span>
@@ -270,7 +274,7 @@ export default function App() {
             <div
               key={mod.id}
               onClick={() => setSelectedModuleId(mod.id)}
-              className="bg-white p-8 rounded-none border border-[#1A1A1A]/10 hover:border-[#1A1A1A] cursor-pointer transition-all hover:bg-[#F4F1EE]/30 block flex flex-col justify-between space-y-6"
+              className="bg-white p-8 rounded-none border border-[#1A1A1A]/10 hover:border-[#1A1A1A] cursor-pointer transition-all hover:bg-[#F4F1EE]/30 flex flex-col justify-between space-y-6"
             >
               <div className="space-y-4">
                 <div className="w-10 h-10 bg-[#F4F1EE] rounded-none flex items-center justify-center border border-[#1A1A1A]/5">
@@ -367,7 +371,7 @@ export default function App() {
       {/* 5. LIVE CODE INTERACTIVE DEMO (THE SHOWCASE WORKSPACE) */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-          <div className="w-16 h-[1px] bg-[#1A1A1A] mx-auto mb-4"></div>
+          <div className="w-16 h-px bg-[#1A1A1A] mx-auto mb-4"></div>
           <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A]/60 block">
             IMMERSION ADMINISTRATIVE
           </span>
@@ -387,7 +391,7 @@ export default function App() {
       {/* 6. PRICING SECTION */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-          <div className="w-16 h-[1px] bg-[#1A1A1A] mx-auto mb-4"></div>
+          <div className="w-16 h-px bg-[#1A1A1A] mx-auto mb-4"></div>
           <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A]/60 block">
             VALEUR & ACCOMPAGNEMENT
           </span>
@@ -407,7 +411,7 @@ export default function App() {
       {/* 7. DOCUMENTATION ENGINE */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-          <div className="w-16 h-[1px] bg-[#1A1A1A] mx-auto mb-4"></div>
+          <div className="w-16 h-px bg-[#1A1A1A] mx-auto mb-4"></div>
           <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A]/60 block">
             MANUEL DE RÉFÉRENCE DE DÉPLOIEMENT
           </span>
@@ -427,12 +431,12 @@ export default function App() {
       {/* 8. RESERVATION DE MO MEETING FORM */}
       <section className="py-24 px-6 max-w-7xl mx-auto font-sans">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-          <div className="w-16 h-[1px] bg-[#1A1A1A] mx-auto mb-4"></div>
+          <div className="w-16 h-px bg-[#1A1A1A] mx-auto mb-4"></div>
           <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-[#1A1A1A]/60 block">
             ENTRETIEN DE SÉCURITÉ DE RENTRÉE
           </span>
           <h2 className="text-4xl sm:text-5xl font-serif italic font-medium tracking-tight text-[#1A1A1A]">
-            Planifiez l’Installation de Votre Établissement
+            Planifiez l'Installation de Votre Établissement
           </h2>
           <p className="text-[#1A1A1A]/70 text-sm max-w-xl mx-auto leading-relaxed">
             Discutez de vos contraintes d'équipement informatique avec nos
@@ -540,9 +544,7 @@ export default function App() {
             d'administration réservés.
           </span>
           <div className="flex gap-4">
-            <span>
-              Souveraineté des données
-            </span>
+            <span>Souveraineté des données</span>
             <a
               href="/privacy"
               onClick={(event) => {
