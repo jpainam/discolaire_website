@@ -1,16 +1,48 @@
 import * as Icons from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContactForm from "./components/ContactForm";
 import DemoSandbox from "./components/DemoSandbox";
 import DocViewer from "./components/DocViewer";
 import HeroSection from "./components/HeroSection";
+import LegalPage from "./components/LegalPage";
 import PricingCalculator from "./components/PricingCalculator";
+import type { LegalView } from "./data/legalContent";
 import { DISCOLAIRE_MODULES } from "./data/modulesData";
 
 export default function App() {
   const [activeNav, setActiveNav] = useState<string>("home");
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const navigateToRoute = (path: string) => {
+    window.history.pushState({}, "", path);
+    setCurrentPath(path);
+    setSelectedModuleId(null);
+    setIsMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const navigateToLegalRoute = (view: LegalView) => {
+    navigateToRoute(view === "privacy" ? "/privacy" : "/terms");
+  };
+
+  const getSectionElementId = (sectionId: string) =>
+    sectionId === "playground"
+      ? "experience-bac-a-sable"
+      : sectionId === "pricing"
+        ? "simulateur-de-tarifs"
+        : sectionId === "docs"
+          ? "documentation-complete"
+          : sectionId === "contact"
+            ? "formulaire-demo"
+            : "section-hero-principale";
 
   // Helper to dynamically render a Lucide icon from its name string
   const renderModuleIcon = (name: string) => {
@@ -24,29 +56,51 @@ export default function App() {
   const selectedModule = DISCOLAIRE_MODULES.find(
     (m) => m.id === selectedModuleId,
   );
+  const legalRoute =
+    currentPath === "/privacy"
+      ? "privacy"
+      : currentPath === "/terms"
+        ? "terms"
+        : null;
 
   // Navigation page transition scrolling helper
   const navigateToSection = (sectionId: string) => {
+    if (currentPath !== "/") {
+      window.history.pushState({}, "", "/");
+      setCurrentPath("/");
+      setActiveNav(sectionId);
+      setIsMobileMenuOpen(false);
+      window.setTimeout(() => {
+        const targetElement = document.getElementById(
+          getSectionElementId(sectionId),
+        );
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 0);
+      return;
+    }
+
     setActiveNav(sectionId);
     setIsMobileMenuOpen(false);
 
     // Smooth scroll to container ID
-    const targetElement = document.getElementById(
-      sectionId === "playground"
-        ? "experience-bac-a-sable"
-        : sectionId === "pricing"
-          ? "simulateur-de-tarifs"
-          : sectionId === "docs"
-            ? "documentation-complete"
-            : sectionId === "contact"
-              ? "formulaire-demo"
-              : "section-hero-principale",
-    );
+    const targetElement = document.getElementById(getSectionElementId(sectionId));
 
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  if (legalRoute) {
+    return (
+      <LegalPage
+        view={legalRoute}
+        onNavigateHome={() => navigateToRoute("/")}
+        onNavigateLegal={navigateToLegalRoute}
+      />
+    );
+  }
 
   return (
     <div
@@ -486,15 +540,29 @@ export default function App() {
             d'administration réservés.
           </span>
           <div className="flex gap-4">
-            <span className="hover:underline cursor-pointer">
+            <span>
               Souveraineté des données
             </span>
-            <span className="hover:underline cursor-pointer">
-              Protection de l'Enfance (RGPD)
-            </span>
-            <span className="hover:underline cursor-pointer">
-              Conditions d'Utilisation de Démo
-            </span>
+            <a
+              href="/privacy"
+              onClick={(event) => {
+                event.preventDefault();
+                navigateToLegalRoute("privacy");
+              }}
+              className="hover:underline cursor-pointer text-[#1A1A1A]/60"
+            >
+              Confidentialité
+            </a>
+            <a
+              href="/terms"
+              onClick={(event) => {
+                event.preventDefault();
+                navigateToLegalRoute("terms");
+              }}
+              className="hover:underline cursor-pointer text-[#1A1A1A]/60"
+            >
+              Conditions d'utilisation
+            </a>
           </div>
         </div>
       </footer>
